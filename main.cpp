@@ -5,6 +5,8 @@ int main()
 {
 txCreateWindow(800,600);
 
+//txDiable
+
     int x = 300;
     int vx = 15;
     int y = 300;
@@ -13,12 +15,17 @@ txCreateWindow(800,600);
     int x1 = 300;
     int y1 = 300;
 
+    HDC  background = txLoadImage ("fon.bmp");
+
+
+
     while(true)
     {
         txClear();
         txSetColor(TX_WHITE,5);
         txSetFillColor(TX_BLACK);
 
+        txBitBlt (txDC(), 0, 0, 800, 600, background);
 
         txCircle(400,y,15);
         y=y+vy;
@@ -60,6 +67,8 @@ txCreateWindow(800,600);
 
         txSleep(10);
     }
+
+    txDeleteDC (background);
 
 txTextCursor (false);
 return 0;
