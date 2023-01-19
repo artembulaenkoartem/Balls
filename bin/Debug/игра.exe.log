@@ -1,0 +1,116 @@
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Артем\игра\bin\Debug\игра.exe, файл: c:\users\kids\downloads\codeblocks\mingw\include\txlib.h, строка: 13628, функция: bool {anonymous}::TX::txBitBlt(HDC, double, double, double, double, HDC, double, double, unsigned int),
+
+Сообщение: Параметр "sourceImage" неверен. Возможно, этот холст не создан, или уже уничтожен, или не загрузилась картинка.
+
+#1: TXLib [Ver: 00173a, Rev: 171, Date: 2022-07-23 02:08:28 +0400], Instance: 0x005042FC (32-bit), Flags: CMdRe0, Thread: 0x14E4 (Main), GetLastError(): 13 (Недопустимые данные). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x004221C3 in C:\Артем\игра\bin\Debug\игра.exe: txBitBlt() at c:/users/kids/downloads/codeblocks/mingw/include/txlib.h (13628)
+
+# 1 0x0042BBBF in C:\Артем\игра\bin\Debug\игра.exe: main() at C:/Артем/игра/main.cpp (28):
+
+     26:     txSetFillColor(TX_BLACK);
+     27: 
+=>   28:     txBitBlt (txDC(), 0,   0,  800, 600, background);
+     29: 
+     30:     txTransparentBlt (txDC(), 400, y,   95,213, picture1, 0, 0, TX_WHITE);
+
+--------------------------------------------------
+Стек вызовов TX:
+
+# 0 in bool {anonymous}::TX::txBitBlt(HDC, double, double, double, double, HDC, double, double, unsigned int) at c:\users\kids\downloads\codeblocks\mingw\include\txlib.h (13628):
+
+  13626:     {
+  13627: $1  if (_TX_HDC_FAILED (destImage))   return false;
+=>13628: $   if (_TX_HDC_FAILED (sourceImage)) return false;
+  13629: 
+  13630: $   POINT size = txGetExtent (sourceImage);
+
+# 1 in int main() at C:\Артем\игра\main.cpp (28):
+
+     26:     txSetFillColor(TX_BLACK);
+     27: 
+=>   28:     txBitBlt (txDC(), 0,   0,  800, 600, background);
+     29: 
+     30:     txTransparentBlt (txDC(), 400, y,   95,213, picture1, 0, 0, TX_WHITE);
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 171, Date: 2022-07-23 02:08:28 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\kids\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Jan 19 2023 10:27:47, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Jan 19 2023 10:27:53
+
+Run file:	C:\Артем\игра\bin\Debug\игра.exe
+Directory:	C:\Артем\игра
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Артем\игра\bin\Debug\игра.exe, файл: c:\users\kids\downloads\codeblocks\mingw\include\txlib.h, строка: 13628, функция: bool {anonymous}::TX::txBitBlt(HDC, double, double, double, double, HDC, double, double, unsigned int),
+
+Сообщение: Параметр "sourceImage" неверен. Возможно, этот холст не создан, или уже уничтожен, или не загрузилась картинка.
+
+#1: TXLib [Ver: 00173a, Rev: 171, Date: 2022-07-23 02:08:28 +0400], Instance: 0x005042FC (32-bit), Flags: CMdRe0, Thread: 0x2098 (Main), GetLastError(): 13 (Недопустимые данные). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x004221C3 in C:\Артем\игра\bin\Debug\игра.exe: txBitBlt() at c:/users/kids/downloads/codeblocks/mingw/include/txlib.h (13628)
+
+# 1 0x0042BBBF in C:\Артем\игра\bin\Debug\игра.exe: main() at C:/Артем/игра/main.cpp (28):
+
+     26:     txSetFillColor(TX_BLACK);
+     27: 
+=>   28:     txBitBlt (txDC(), 0,   0,  800, 600, background);
+     29: 
+     30:     txTransparentBlt (txDC(), 400, y,   95,213, picture1, 0, 0, TX_WHITE);
+
+--------------------------------------------------
+Стек вызовов TX:
+
+# 0 in bool {anonymous}::TX::txBitBlt(HDC, double, double, double, double, HDC, double, double, unsigned int) at c:\users\kids\downloads\codeblocks\mingw\include\txlib.h (13628):
+
+  13626:     {
+  13627: $1  if (_TX_HDC_FAILED (destImage))   return false;
+=>13628: $   if (_TX_HDC_FAILED (sourceImage)) return false;
+  13629: 
+  13630: $   POINT size = txGetExtent (sourceImage);
+
+# 1 in int main() at C:\Артем\игра\main.cpp (28):
+
+     26:     txSetFillColor(TX_BLACK);
+     27: 
+=>   28:     txBitBlt (txDC(), 0,   0,  800, 600, background);
+     29: 
+     30:     txTransparentBlt (txDC(), 400, y,   95,213, picture1, 0, 0, TX_WHITE);
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 171, Date: 2022-07-23 02:08:28 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	c:\users\kids\downloads\codeblocks\mingw\include\txlib.h
+Compiled:	Jan 19 2023 10:29:50, GNU g++ 4.8.1, std=201103L, MinGW Runtime 3.20, 32-bit, DEBUG
+Started:	Jan 19 2023 10:29:56
+
+Run file:	C:\Артем\игра\bin\Debug\игра.exe
+Directory:	C:\Артем\игра
+
+--------------------------------------------------

@@ -15,25 +15,25 @@ txCreateWindow(800,600);
     int x1 = 300;
     int y1 = 300;
 
-    HDC  background = txLoadImage ("fon.bmp");
-
-
+    HDC background = txLoadImage ("fon.bmp");
+    HDC picture1 =   txLoadImage ("man.bmp");
+    HDC picture2 =   txLoadImage ("man.bmp");
 
     while(true)
     {
-        txClear();
-        txSetColor(TX_WHITE,5);
-        txSetFillColor(TX_BLACK);
+    txClear();
+    txSetColor(TX_WHITE,5);
+    txSetFillColor(TX_BLACK);
 
-        txBitBlt (txDC(), 0, 0, 800, 600, background);
+    txBitBlt (txDC(), 0,   0,  800, 600, background);
 
-        txCircle(400,y,15);
-        y=y+vy;
+    txTransparentBlt (txDC(), 400, y,   95,213, picture1, 0, 0, TX_WHITE);
+    txTransparentBlt (txDC(), x,   300, 95,213, picture2, 0, 0, TX_WHITE);
+    txTransparentBlt (txDC(), x1,  y1,  95,213, picture1, 0, 0, TX_WHITE);
 
-        txCircle(x,300,15);
-        x=x+vx;
+    y=y+vy;
+    x=x+vx;
 
-        txCircle(x1,y1,15);
 
 
         if(y<0 || y>600)
@@ -69,6 +69,8 @@ txCreateWindow(800,600);
     }
 
     txDeleteDC (background);
+    txDeleteDC (picture1);
+    txDeleteDC (picture2);
 
 txTextCursor (false);
 return 0;
