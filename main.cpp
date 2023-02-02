@@ -1,111 +1,156 @@
 
     #include "TXLib.h"
 
-    int main()
+struct Picture
+
+ {
+    int x;
+    int y;
+    HDC image;
+    int vx;
+    int vy;
+
+ };
+
+struct Barriar
+ {
+     int x;
+     int y;
+     int w;
+     int h;
+
+ };
+
+struct Bullet
+{
+    int x;
+    int y;
+    int vx;
+    int vy;
+
+    void draw()
     {
-    txCreateWindow(800,600);
-
-    //txDiable
-
-    int x = 300;
-    int vx = 15;
-    int y = 300;
-    int vy = 5;
+    TXSetColor (TX_BLACK);
+    TXSetFillColor (TX_BLACK;
+    txCircle(x,y,5);
+    }
 
 
+    }
+
+
+
+ void draw_picture (Picture picture)
+ {
+    txTransparentBlt (txDC(), picture.x,  picture.y,  95,213, picture.image, 0, 0, TX_WHITE);
+ }
+
+
+
+int main()
+{
+txCreateWindow(800,600);
+txDisableAutoPause();
 
     HDC background = txLoadImage ("fon.bmp");
     int x_background = 0;
     int y_background = 0;
 
+    // 1 упр
+    Picture picture1 = {300, 300, txLoadImage ("man.bmp"), 5, 5};
 
-    HDC picture1 =   txLoadImage ("man.bmp");
-    HDC picture2 =   txLoadImage ("man.bmp");
-    HDC picturex4 =   txLoadImage ("man.bmp");
-    int x_picturex4 = 300;
-    int y_picturex4 = 300;
+    // 2 вверх вниз
+    Picture picture2 = {400, 300, picture1.image, 15, 5};
 
-    int x3 = 600;
-    int y3 = 100;
-    int x4 = 500;
-    int y4 = 500;
+    //Barriar
+    Barriar bar1 = {600, 100, 100, 400};
 
-    while(true)
+    while(!GetAsyncKeyState(VK_ESCAPE))
     {
-    txClear();
-    txSetColor(TX_WHITE,5);
-    txSetFillColor(TX_BLACK);
+        txClear();
+        txSetColor(TX_WHITE,5);
+        txSetFillColor(TX_BLACK);
 
-    txBitBlt (txDC(), x_background,   y_background,  800, 600, background);
+        txBitBlt (txDC(), x_background,   y_background,  800, 600, background);
 
-    txTransparentBlt (txDC(), 400, y,   95,213, picture1, 0, 0, TX_WHITE);
-    txTransparentBlt (txDC(), x,   300, 95,213, picture2, 0, 0, TX_WHITE);
-    //txTransparentBlt (txDC(), x1,  y1,  95,213, picture1, 0, 0, TX_WHITE);
-    txTransparentBlt (txDC(), x_picturex4,  y_picturex4,  95,213, picturex4, 0, 0, TX_WHITE);
-
-    txRectangle(x3,y3,x4,y4);
-
-    y=y+vy;
-    x=x+vx;
-
-    if (x_picturex4 < x4 && x_picturex4+213 > x3)
-
-    {
-        x_picturex4 = x3;
-    }
+        draw_picture(picture1);
+        draw_picture(picture2);
 
 
-        if(y<0 || y>600)
+        txRectangle(bar1.x, bar1.y, bar1.x+bar1.w, bar1.y+bar1.h);
+
+        picture2.y = picture2.y + picture2.vy;
+        picture2.x = picture2.x + picture2.vx;
+
+        if (picture1.x < bar1.x+bar1.w && picture1.x+213 > bar1.x)
 
         {
-            vy=-vy;
+            picture1.x = bar1.x;
         }
 
-        if(x<0 || x>800)
+
+        if(picture2.y<0 || picture2.y>600)
 
         {
-            vx=-vx;
+            picture2.vy=-picture2.vy;
+        }
+
+        if(picture2.x<0 || picture2.x>800)
+
+        {
+            picture2.vx=-picture2.vx;
+        }
+
+        if(GetAsyncKeyState ('SPACE'))
+        {
+            picture1.y = picture1.y - picture1.vy;
         }
 
         if(GetAsyncKeyState ('W'))
         {
-            y_picturex4=y_picturex4-5;
+            picture1.y = picture1.y - picture1.vy;
         }
         if(GetAsyncKeyState ('S'))
         {
-            y_picturex4=y_picturex4+5;
+            picture1.y = picture1.y + picture1.vy;
         }
         if(GetAsyncKeyState ('A'))
         {
-            x_picturex4=x_picturex4-5;
+            picture1.x = picture1.x - picture1.vx;
         }
         if(GetAsyncKeyState ('D'))
         {
-            x_picturex4=x_picturex4+5;
+            picture1.x = picture1.x + picture1.vx;
         }
 
-        if(x_picturex4<0)
+        bul.vitable = true;
+        bul.x = picture.x
+        bul.y = picture.y
+
+
+
+        if(picture1.x < 0)
         {
-            x_picturex4=0;
-            x_background +=5;
+            picture1.x = 0;
+            x_background += 5;
         }
 
-        if(x_picturex4>800-95)
+        if(picture1.x > 800-95)
         {
-            x_picturex4=800-95;
-            x_background -=5;
+            picture1.x = 800-95;
+            x_background -= 5;
         }
 
-        if(y_picturex4<0)
+        if(picture1.y < 0)
         {
-            y_picturex4=0;
+            picture1.y = 0;
             y_background +=5;
         }
 
-        if(y_picturex4>600-213)
+        if(picture1.y > 600-213)
         {
-            y_picturex4=600-213;
-            y_background -=5;
+            picture1.y = 600-213;
+            y_background -= 5;
         }
 
 
@@ -114,9 +159,9 @@
     }
 
     txDeleteDC (background);
-    txDeleteDC (picture1);
-    txDeleteDC (picture2);
-    txDeleteDC (picturex4);
+    txDeleteDC (picture1.image);
+    txDeleteDC (picture2.image);
+
 txTextCursor (false);
 return 0;
 }
