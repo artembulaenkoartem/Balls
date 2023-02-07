@@ -25,27 +25,22 @@ struct Bullet
 {
     int x;
     int y;
+    bool visible;
     int vx;
     int vy;
 
     void draw()
     {
-    TXSetColor (TX_BLACK);
-    TXSetFillColor (TX_BLACK;
-    txCircle(x,y,5);
+        txSetColor (TX_BLACK);
+        txSetFillColor (TX_BLACK);
+        txCircle(x,y,5);
     }
+};
 
-
-    }+
-
-
-
- void draw_picture (Picture picture)
- {
+void draw_picture (Picture picture)
+{
     txTransparentBlt (txDC(), picture.x,  picture.y,  95,213, picture.image, 0, 0, TX_WHITE);
- }
-
-
+}
 
 int main()
 {
@@ -64,6 +59,12 @@ txDisableAutoPause();
 
     //Barriar
     Barriar bar1 = {600, 100, 100, 400};
+                  
+    Bullet bul = {150, 150, true, 0, 10};
+
+    char str [10];
+    const char* str1 = "1";
+
 
     while(!GetAsyncKeyState(VK_ESCAPE))
     {
@@ -76,56 +77,72 @@ txDisableAutoPause();
         draw_picture(picture1);
         draw_picture(picture2);
 
-
         txRectangle(bar1.x, bar1.y, bar1.x+bar1.w, bar1.y+bar1.h);
 
         picture2.y = picture2.y + picture2.vy;
         picture2.x = picture2.x + picture2.vx;
 
         if (picture1.x < bar1.x+bar1.w && picture1.x+213 > bar1.x)
-
         {
             picture1.x = bar1.x;
         }
 
 
         if(picture2.y<0 || picture2.y>600)
-
         {
             picture2.vy=-picture2.vy;
         }
 
         if(picture2.x<0 || picture2.x>800)
-
         {
             picture2.vx=-picture2.vx;
         }
 
-        if(GetAsyncKeyState ('SPACE'))
+        if(bul.visible)
         {
-            picture1.y = picture1.y - picture1.vy;
+            bul.draw();
+        }
+
+        if(GetAsyncKeyState (VK_SPACE))
+        {
+            bul.visible = true;
+            bul.x = picture1.x;
+            bul.y = picture1.y;
         }
 
         if(GetAsyncKeyState ('W'))
         {
             picture1.y = picture1.y - picture1.vy;
         }
+
         if(GetAsyncKeyState ('S'))
         {
             picture1.y = picture1.y + picture1.vy;
         }
+
         if(GetAsyncKeyState ('A'))
         {
             picture1.x = picture1.x - picture1.vx;
         }
+
         if(GetAsyncKeyState ('D'))
         {
+            txSetColor(TX_WHITE);
             picture1.x = picture1.x + picture1.vx;
         }
 
-        bul.vitable = true;
-        bul.x = picture.x
-        bul.y = picture.y
+        sprintf(str,"Кордина x = %d", picture1.x);
+        txTextOut(10, 10, str);
+
+
+        txTextOut(10, 30, str1);
+
+        if(GetAsyncKeyState ('Y'))
+        {
+           str1 = "Y";
+        }
+
+
 
 
 

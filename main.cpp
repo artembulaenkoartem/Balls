@@ -25,27 +25,22 @@ struct Bullet
 {
     int x;
     int y;
+    bool visible;
     int vx;
     int vy;
 
     void draw()
     {
-    TXSetColor (TX_BLACK);
-    TXSetFillColor (TX_BLACK;
-    txCircle(x,y,5);
+        txSetColor (TX_BLACK);
+        txSetFillColor (TX_BLACK);
+        txCircle(x,y,5);
     }
+};
 
-
-    }
-
-
-
- void draw_picture (Picture picture)
- {
+void draw_picture (Picture picture)
+{
     txTransparentBlt (txDC(), picture.x,  picture.y,  95,213, picture.image, 0, 0, TX_WHITE);
- }
-
-
+}
 
 int main()
 {
@@ -65,6 +60,12 @@ txDisableAutoPause();
     //Barriar
     Barriar bar1 = {600, 100, 100, 400};
 
+    Bullet bul = {150, 150, false, 0, 10};
+
+    char str [100];
+    const char* str1 = "1";
+
+
     while(!GetAsyncKeyState(VK_ESCAPE))
     {
         txClear();
@@ -76,56 +77,84 @@ txDisableAutoPause();
         draw_picture(picture1);
         draw_picture(picture2);
 
+        if(bul.visible)
+        {
+            bul.draw();
+            bul.y -= bul.vy;
+        }
 
+
+        txSetColor(TX_WHITE);
         txRectangle(bar1.x, bar1.y, bar1.x+bar1.w, bar1.y+bar1.h);
 
         picture2.y = picture2.y + picture2.vy;
         picture2.x = picture2.x + picture2.vx;
 
         if (picture1.x < bar1.x+bar1.w && picture1.x+213 > bar1.x)
-
         {
             picture1.x = bar1.x;
         }
 
 
         if(picture2.y<0 || picture2.y>600)
-
         {
             picture2.vy=-picture2.vy;
         }
 
         if(picture2.x<0 || picture2.x>800)
-
         {
             picture2.vx=-picture2.vx;
         }
 
-        if(GetAsyncKeyState ('SPACE'))
+
+        if(GetAsyncKeyState (VK_SPACE))
         {
-            picture1.y = picture1.y - picture1.vy;
+            bul.visible = true;
+            bul.x = picture1.x+47;
+            bul.y = picture1.y+50;
+        }
+
+        if(bul.y < -10)
+        {
+            bul.visible = false;
         }
 
         if(GetAsyncKeyState ('W'))
         {
             picture1.y = picture1.y - picture1.vy;
         }
+
         if(GetAsyncKeyState ('S'))
         {
             picture1.y = picture1.y + picture1.vy;
         }
+
         if(GetAsyncKeyState ('A'))
         {
             picture1.x = picture1.x - picture1.vx;
         }
+
         if(GetAsyncKeyState ('D'))
         {
             picture1.x = picture1.x + picture1.vx;
         }
 
-        bul.vitable = true;
-        bul.x = picture.x
-        bul.y = picture.y
+        /*
+        txSetColor(TX_WHITE);
+        sprintf(str,"Координата x = %d", bul.x);
+        txTextOut(10, 10, str);
+        sprintf(str,"Координата y = %d", bul.y);
+        txTextOut(10, 25, str);
+
+
+        txTextOut(10, 40, str1);
+
+        if(GetAsyncKeyState ('Y'))
+        {
+           str1 = "Y";
+        }*/
+
+
 
 
 
