@@ -1,6 +1,8 @@
 
     #include "TXLib.h"
 
+  // 467,300,500,520
+
 struct Picture
 
  {
@@ -53,12 +55,15 @@ txDisableAutoPause();
 
     // 1 упр
     Picture picture1 = {300, 300, txLoadImage ("man.bmp"), 5, 5};
+    int picture1_old_x = 0;
+    int picture1_old_y = 0;
+    bool turnback;
 
     // 2 вверх вниз
     Picture picture2 = {400, 300, picture1.image, 15, 5};
 
     //Barriar
-    Barriar bar1 = {600, 100, 100, 400};
+    Barriar bar1 = {350, 250, 100, 100};
 
     Bullet bul = {150, 150, false, 0, 10};
 
@@ -75,6 +80,10 @@ txDisableAutoPause();
         txBitBlt (txDC(), x_background,   y_background,  800, 600, background);
 
         draw_picture(picture1);
+        picture1_old_x = picture1.x;
+        picture1_old_y = picture1.y;
+        turnback = false;
+
         draw_picture(picture2);
 
         if(bul.visible)
@@ -90,11 +99,23 @@ txDisableAutoPause();
         picture2.y = picture2.y + picture2.vy;
         picture2.x = picture2.x + picture2.vx;
 
-        if (picture1.x < bar1.x+bar1.w && picture1.x+213 > bar1.x)
+
+        if (picture1.x+95 > bar1.x && picture1.x < bar1.x+bar1.w &&
+            picture1.y+213 > bar1.y && picture1.y < bar1.y+bar1.h)
         {
-            picture1.x = bar1.x;
+            txSetColor(TX_WHITE);
+            txTextOut(50, 300, "Касание");
+            turnback = true;
         }
 
+
+        if(turnback)
+        {
+            txSetColor(TX_WHITE);
+            txTextOut(50, 350, "Snop");
+           picture1.x = picture1_old_x;
+           picture1.y = picture1_old_y;
+        }
 
         if(picture2.y<0 || picture2.y>600)
         {
@@ -139,7 +160,7 @@ txDisableAutoPause();
             picture1.x = picture1.x + picture1.vx;
         }
 
-        /*
+
         txSetColor(TX_WHITE);
         sprintf(str,"Координата x = %d", bul.x);
         txTextOut(10, 10, str);
@@ -152,7 +173,7 @@ txDisableAutoPause();
         if(GetAsyncKeyState ('Y'))
         {
            str1 = "Y";
-        }*/
+        }
 
 
 

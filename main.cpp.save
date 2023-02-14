@@ -1,6 +1,8 @@
 
     #include "TXLib.h"
 
+  // 467,300,500,520
+
 struct Picture
 
  {
@@ -53,16 +55,19 @@ txDisableAutoPause();
 
     // 1 упр
     Picture picture1 = {300, 300, txLoadImage ("man.bmp"), 5, 5};
+    int picture1_old_x = 0;
+    int picture1_old_y = 0;
+    bool turnback;
 
     // 2 вверх вниз
     Picture picture2 = {400, 300, picture1.image, 15, 5};
 
     //Barriar
-    Barriar bar1 = {600, 100, 100, 400};
-                  
-    Bullet bul = {150, 150, true, 0, 10};
+    Barriar bar1 = {350, 250, 100, 100};
 
-    char str [10];
+    Bullet bul = {150, 150, false, 0, 10};
+
+    char str [100];
     const char* str1 = "1";
 
 
@@ -75,18 +80,48 @@ txDisableAutoPause();
         txBitBlt (txDC(), x_background,   y_background,  800, 600, background);
 
         draw_picture(picture1);
+        picture1_old_x = picture1.x;
+        picture1_old_y = picture1.y;
+        turnback = false;
+
         draw_picture(picture2);
 
+        if(bul.visible)
+        {
+            bul.draw();
+            bul.y -= bul.vy;
+        }
+
+
+        txSetColor(TX_WHITE);
         txRectangle(bar1.x, bar1.y, bar1.x+bar1.w, bar1.y+bar1.h);
 
         picture2.y = picture2.y + picture2.vy;
         picture2.x = picture2.x + picture2.vx;
 
-        if (picture1.x < bar1.x+bar1.w && picture1.x+213 > bar1.x)
+        for(int x=picture1.x; x<picture1.x+95; x=x+10)
         {
-            picture1.x = bar1.x;
+            for(int y=picture1.y; y<picture1.y+213; y=y+10)
+            {
+                if (x+95 > bar1.x && x < bar1.x+bar1.w &&
+                    y+213 > bar1.y && y < bar1.y+bar1.h)
+                {
+                    txSetColor(TX_WHITE);
+        sprintf(str,"Координата x = %d", bul.x);
+        txTextOut(10, 10, str);
+        sprintf(str,"Координата y = %d", bul.y);
+        txTextOut(10, 25, str);
+                    turnback = true;
+                }
+            }
+
         }
 
+        if(turnback)
+        {
+           picture1.x = picture1_old_x;
+           picture1.y = picture1_old_y;
+        }
 
         if(picture2.y<0 || picture2.y>600)
         {
@@ -98,16 +133,17 @@ txDisableAutoPause();
             picture2.vx=-picture2.vx;
         }
 
-        if(bul.visible)
-        {
-            bul.draw();
-        }
 
         if(GetAsyncKeyState (VK_SPACE))
         {
             bul.visible = true;
-            bul.x = picture1.x;
-            bul.y = picture1.y;
+            bul.x = picture1.x+47;
+            bul.y = picture1.y+50;
+        }
+
+        if(bul.y < -10)
+        {
+            bul.visible = false;
         }
 
         if(GetAsyncKeyState ('W'))
@@ -127,15 +163,18 @@ txDisableAutoPause();
 
         if(GetAsyncKeyState ('D'))
         {
-            txSetColor(TX_WHITE);
             picture1.x = picture1.x + picture1.vx;
         }
 
-        sprintf(str,"Кордина x = %d", picture1.x);
+
+        txSetColor(TX_WHITE);
+        sprintf(str,"Координата x = %d", bul.x);
         txTextOut(10, 10, str);
+        sprintf(str,"Координата y = %d", bul.y);
+        txTextOut(10, 25, str);
 
 
-        txTextOut(10, 30, str1);
+        txTextOut(10, 40, str1);
 
         if(GetAsyncKeyState ('Y'))
         {
