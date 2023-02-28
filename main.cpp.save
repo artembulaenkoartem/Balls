@@ -1,8 +1,6 @@
 
     #include "TXLib.h"
 
-  // 467,300,500,520
-
 struct Picture
 
  {
@@ -54,22 +52,30 @@ txDisableAutoPause();
     int y_background = 0;
 
     // 1 упр
-    Picture picture1 = {300, 300, txLoadImage ("man.bmp"), 5, 5};
+    Picture picture1 = {100, 300, txLoadImage ("man.bmp"), 5, 5};
     int picture1_old_x = 0;
     int picture1_old_y = 0;
     bool turnback;
 
     // 2 вверх вниз
-    Picture picture2 = {400, 300, picture1.image, 15, 5};
+    Picture picture2 = {100, 300, picture1.image, 15, 5};
 
-    //Barriar
-    Barriar bar1 = {350, 250, 100, 100};
-
+    //Бариер
+    Barriar bar1 = {111, 30, 100, 100};
+    Barriar bar2 = {280, 25, 150, 150};
     Bullet bul = {150, 150, false, 0, 10};
 
     char str [100];
     const char* str1 = "1";
 
+
+    //Барер2
+    /*Barriar bar3 = {313, 30, 300, 300};
+    Barriar bar4 = {340, 25, 350, 350};
+    Bullet bul2 = {360, 150, false, 0, 10};
+
+    char str [100];
+    const char* str3 = "2"; */
 
     while(!GetAsyncKeyState(VK_ESCAPE))
     {
@@ -82,9 +88,31 @@ txDisableAutoPause();
         draw_picture(picture1);
         picture1_old_x = picture1.x;
         picture1_old_y = picture1.y;
-        turnback = false;
 
         draw_picture(picture2);
+
+
+        if(GetAsyncKeyState ('W'))
+        {
+            picture1.y = picture1.y - picture1.vy;
+        }
+
+        if(GetAsyncKeyState ('S'))
+        {
+            picture1.y = picture1.y + picture1.vy;
+        }
+
+        if(GetAsyncKeyState ('A'))
+        {
+            picture1.x = picture1.x - picture1.vx;
+        }
+
+        if(GetAsyncKeyState ('D'))
+        {
+            picture1.x = picture1.x + picture1.vx;
+        }
+
+
 
         if(bul.visible)
         {
@@ -99,29 +127,16 @@ txDisableAutoPause();
         picture2.y = picture2.y + picture2.vy;
         picture2.x = picture2.x + picture2.vx;
 
-        for(int x=picture1.x; x<picture1.x+95; x=x+10)
-        {
-            for(int y=picture1.y; y<picture1.y+213; y=y+10)
-            {
-                if (x+95 > bar1.x && x < bar1.x+bar1.w &&
-                    y+213 > bar1.y && y < bar1.y+bar1.h)
-                {
-                    txSetColor(TX_WHITE);
-        sprintf(str,"Координата x = %d", bul.x);
-        txTextOut(10, 10, str);
-        sprintf(str,"Координата y = %d", bul.y);
-        txTextOut(10, 25, str);
-                    turnback = true;
-                }
-            }
 
+
+        if (picture1.x+95 > bar1.x && picture1.x < bar1.x+bar1.w &&
+            picture1.y+213 > bar1.y && picture1.y < bar1.y+bar1.h)
+        {
+            picture1.x = picture1_old_x;
+            picture1.y = picture1_old_y;
         }
 
-        if(turnback)
-        {
-           picture1.x = picture1_old_x;
-           picture1.y = picture1_old_y;
-        }
+
 
         if(picture2.y<0 || picture2.y>600)
         {
@@ -145,27 +160,6 @@ txDisableAutoPause();
         {
             bul.visible = false;
         }
-
-        if(GetAsyncKeyState ('W'))
-        {
-            picture1.y = picture1.y - picture1.vy;
-        }
-
-        if(GetAsyncKeyState ('S'))
-        {
-            picture1.y = picture1.y + picture1.vy;
-        }
-
-        if(GetAsyncKeyState ('A'))
-        {
-            picture1.x = picture1.x - picture1.vx;
-        }
-
-        if(GetAsyncKeyState ('D'))
-        {
-            picture1.x = picture1.x + picture1.vx;
-        }
-
 
         txSetColor(TX_WHITE);
         sprintf(str,"Координата x = %d", bul.x);
