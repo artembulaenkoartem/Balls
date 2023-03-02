@@ -39,7 +39,7 @@ struct Bullet
 
 void draw_picture (Picture picture)
 {
-    txTransparentBlt (txDC(), picture.x,  picture.y,  95,213, picture.image, 0, 0, TX_WHITE);
+    txTransparentBlt (txDC(), picture.x,  picture.y,  95, 213, picture.image, 0, 0, TX_WHITE);
 }
 
 int main()
@@ -51,6 +51,8 @@ txDisableAutoPause();
     int x_background = 0;
     int y_background = 0;
 
+    int r = 150;
+
     // 1 упр
     Picture picture1 = {100, 300, txLoadImage ("man.bmp"), 5, 5};
     int picture1_old_x = 0;
@@ -58,7 +60,7 @@ txDisableAutoPause();
     bool turnback;
 
     // 2 вверх вниз
-    Picture picture2 = {100, 300, picture1.image, 15, 5};
+    Picture picture2 = {100, 300, picture1.image, 1, 1};
 
     //Бариер
     Barriar bar1 = {111, 30, 100, 100};
@@ -68,14 +70,6 @@ txDisableAutoPause();
     char str [100];
     const char* str1 = "1";
 
-
-    //Бариер2
-    /*Barriar bar3 = {313, 30, 300, 300};
-    Barriar bar4 = {340, 25, 350, 350};
-    Bullet bul2 = {360, 150, false, 0, 10};
-
-    char str [100];
-    const char* str3 = "2"; */
 
     while(!GetAsyncKeyState(VK_ESCAPE))
     {
@@ -90,6 +84,9 @@ txDisableAutoPause();
         picture1_old_y = picture1.y;
 
         draw_picture(picture2);
+        txSetColor(TX_RED);
+        txSetFillColor(TX_RED);
+        txRectangle (picture2.x,  picture2.y-15, picture2.x+r , picture2.y);
 
 
         if(GetAsyncKeyState ('W'))
@@ -175,9 +172,12 @@ txDisableAutoPause();
            str1 = "Y";
         }
 
-
-
-
+        if( bul.x > picture2.x && bul.x < picture2.x+101 &&
+            bul.y > picture2.y && bul.y < picture2.y+10)
+        {
+            r -= 10;
+            if(r<0) r=0;
+        }
 
         if(picture1.x < 0)
         {
