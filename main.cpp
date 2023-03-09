@@ -51,7 +51,7 @@ txDisableAutoPause();
     int x_background = 0;
     int y_background = 0;
 
-    int r = 150;
+    int r = 110;
 
     // 1 упр
     Picture picture1 = {100, 300, txLoadImage ("man.bmp"), 5, 5};
@@ -86,7 +86,7 @@ txDisableAutoPause();
         draw_picture(picture2);
         txSetColor(TX_RED);
         txSetFillColor(TX_RED);
-        txRectangle (picture2.x,  picture2.y-15, picture2.x+r , picture2.y);
+        txRectangle (picture2.x,  picture2.y+15, picture2.x+r , picture2.y);
 
 
         if(GetAsyncKeyState ('W'))

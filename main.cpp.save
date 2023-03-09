@@ -37,12 +37,9 @@ struct Bullet
     }
 };
 
-void draw_picture (Picture picture, int r)
+void draw_picture (Picture picture)
 {
-    txTransparentBlt (txDC(), picture.x,  picture.y,  101, 243, picture.image, 0, 0, TX_WHITE);
-    txSetColor(TX_RED);
-    txSetFillColor(TX_RED);
-    txRectangle (picture.x,  picture.y-15, picture.x+r , picture.y);
+    txTransparentBlt (txDC(), picture.x,  picture.y,  95, 213, picture.image, 0, 0, TX_WHITE);
 }
 
 int main()
@@ -57,13 +54,13 @@ txDisableAutoPause();
     int r = 150;
 
     // 1 упр
-    Picture picture1 = {100, 300, txLoadImage ("man1.bmp"), 5, 5};
+    Picture picture1 = {100, 300, txLoadImage ("man.bmp"), 5, 5};
     int picture1_old_x = 0;
     int picture1_old_y = 0;
     bool turnback;
 
     // 2 вверх вниз
-    Picture picture2 = {100, 300, picture1.image, 10, 10};
+    Picture picture2 = {100, 300, picture1.image, 1, 1};
 
     //Бариер
     Barriar bar1 = {111, 30, 100, 100};
@@ -82,11 +79,14 @@ txDisableAutoPause();
 
         txBitBlt (txDC(), x_background,   y_background,  800, 600, background);
 
-        draw_picture(picture1, r);
+        draw_picture(picture1);
         picture1_old_x = picture1.x;
         picture1_old_y = picture1.y;
 
-        draw_picture(picture2, r);
+        draw_picture(picture2);
+        txSetColor(TX_RED);
+        txSetFillColor(TX_RED);
+        txRectangle (picture2.x,  picture2.y+15, picture2.x+r-40 , picture2.y);
 
 
         if(GetAsyncKeyState ('W'))
@@ -173,9 +173,11 @@ txDisableAutoPause();
         }
 
         if( bul.x > picture2.x && bul.x < picture2.x+101 &&
-            bul.y > picture2.y && bul.y < picture2.x+101)
+            bul.y > picture2.y && bul.y < picture2.y+10)
+        {
             r -= 10;
-
+            if(r<0) r=0;
+        }
 
         if(picture1.x < 0)
         {
