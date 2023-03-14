@@ -60,9 +60,9 @@ txDisableAutoPause();
     bool turnback;
 
     // 2 вверх вниз
-    Picture picture2 = {100, 300, picture1.image, 1, 1};
+    Picture picture2 = {100, 300, picture1.image, 81, 7};
 
-    //Бариер
+    //Бариер 1
     Barriar bar1 = {111, 30, 100, 100};
     Barriar bar2 = {280, 25, 150, 150};
     Bullet bul = {150, 150, false, 0, 10};
@@ -70,8 +70,9 @@ txDisableAutoPause();
     char str [100];
     const char* str1 = "1";
 
+    bool stop = true;
 
-    while(!GetAsyncKeyState(VK_ESCAPE))
+       while(!GetAsyncKeyState(VK_ESCAPE))
     {
         txClear();
         txSetColor(TX_WHITE,5);
@@ -113,6 +114,7 @@ txDisableAutoPause();
 
         if(bul.visible)
         {
+
             bul.draw();
             bul.y -= bul.vy;
         }
@@ -121,9 +123,11 @@ txDisableAutoPause();
         txSetColor(TX_WHITE);
         txRectangle(bar1.x, bar1.y, bar1.x+bar1.w, bar1.y+bar1.h);
 
-        picture2.y = picture2.y + picture2.vy;
-        picture2.x = picture2.x + picture2.vx;
-
+        if(stop)
+        {
+            picture2.y = picture2.y + picture2.vy;
+            picture2.x = picture2.x + picture2.vx;
+        }
 
 
         if (picture1.x+95 > bar1.x && picture1.x < bar1.x+bar1.w &&
@@ -176,7 +180,11 @@ txDisableAutoPause();
             bul.y > picture2.y && bul.y < picture2.y+10)
         {
             r -= 10;
-            if(r<0) r=0;
+            if(r<0)
+            {
+                r=0;
+                stop = false;
+            }
         }
 
         if(picture1.x < 0)
