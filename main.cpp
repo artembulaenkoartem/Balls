@@ -60,7 +60,7 @@ txDisableAutoPause();
     bool turnback;
 
     // 2 вверх вниз
-    Picture picture2 = {100, 300, picture1.image, 81, 7};
+    Picture picture2 = {100, 300, picture1.image, 5, 5};
 
     //Бариер 1
     Barriar bar1 = {111, 30, 100, 100};
@@ -85,8 +85,8 @@ txDisableAutoPause();
         picture1_old_y = picture1.y;
 
         draw_picture(picture2);
-        txSetColor(TX_RED);
-        txSetFillColor(TX_RED);
+        txSetColor(TX_ORANGE);
+        txSetFillColor(TX_ORANGE);
         txRectangle (picture2.x,  picture2.y+15, picture2.x+r , picture2.y);
 
 
@@ -161,21 +161,21 @@ txDisableAutoPause();
         {
             bul.visible = false;
         }
-
+       /*
         txSetColor(TX_WHITE);
         sprintf(str,"Координата x = %d", bul.x);
         txTextOut(10, 10, str);
         sprintf(str,"Координата y = %d", bul.y);
-        txTextOut(10, 25, str);
+        txTextOut(10, 25, str);*/
 
-
+/*
         txTextOut(10, 40, str1);
 
         if(GetAsyncKeyState ('Y'))
         {
            str1 = "Y";
         }
-
+*/
         if( bul.x > picture2.x && bul.x < picture2.x+101 &&
             bul.y > picture2.y && bul.y < picture2.y+10)
         {
