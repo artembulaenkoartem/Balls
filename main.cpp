@@ -28,7 +28,6 @@ struct Bullet
     bool visible;
     int vx;
     int vy;
-
     void draw()
     {
         txSetColor (TX_BLACK);
@@ -47,7 +46,7 @@ int main()
 txCreateWindow(800,600);
 txDisableAutoPause();
 
-    HDC background = txLoadImage ("fon.bmp");
+    HDC background = txLoadImage ("fon2.bmp");
     int x_background = 0;
     int y_background = 0;
 
@@ -60,9 +59,9 @@ txDisableAutoPause();
     bool turnback;
 
     // 2 вверх вниз
-    Picture picture2 = {100, 300, picture1.image, 5, 5};
+    Picture picture2 = {100, 300, picture1.image, 2, 8};
 
-    //Бариер 1
+    //Бариер
     Barriar bar1 = {111, 30, 100, 100};
     Barriar bar2 = {280, 25, 150, 150};
     Bullet bul = {150, 150, false, 0, 10};
@@ -71,7 +70,7 @@ txDisableAutoPause();
     const char* str1 = "1";
 
     bool stop = true;
-
+       //пуля
        while(!GetAsyncKeyState(VK_ESCAPE))
     {
         txClear();
@@ -83,13 +82,13 @@ txDisableAutoPause();
         draw_picture(picture1);
         picture1_old_x = picture1.x;
         picture1_old_y = picture1.y;
-
+        //хп
         draw_picture(picture2);
         txSetColor(TX_ORANGE);
         txSetFillColor(TX_ORANGE);
         txRectangle (picture2.x,  picture2.y+15, picture2.x+r , picture2.y);
 
-
+        //управление
         if(GetAsyncKeyState ('W'))
         {
             picture1.y = picture1.y - picture1.vy;
@@ -161,21 +160,21 @@ txDisableAutoPause();
         {
             bul.visible = false;
         }
-       /*
+        //кординаты
         txSetColor(TX_WHITE);
         sprintf(str,"Координата x = %d", bul.x);
         txTextOut(10, 10, str);
         sprintf(str,"Координата y = %d", bul.y);
-        txTextOut(10, 25, str);*/
+        txTextOut(10, 25, str);
 
-/*
+
         txTextOut(10, 40, str1);
 
         if(GetAsyncKeyState ('Y'))
         {
-           str1 = "Y";
+           str1 = "TEXT";
         }
-*/
+
         if( bul.x > picture2.x && bul.x < picture2.x+101 &&
             bul.y > picture2.y && bul.y < picture2.y+10)
         {
@@ -210,7 +209,6 @@ txDisableAutoPause();
             picture1.y = 600-213;
             y_background -= 5;
         }
-
 
 
         txSleep(10);
