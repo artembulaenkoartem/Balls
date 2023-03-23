@@ -46,20 +46,23 @@ int main()
 txCreateWindow(800,600);
 txDisableAutoPause();
 
-    HDC background = txLoadImage ("fon2.bmp");
+    HDC background;
+    HDC background1 = txLoadImage ("fon1.bmp");
+    HDC background2 = txLoadImage ("fon2.bmp");
     int x_background = 0;
     int y_background = 0;
+    background = background1;
 
-    int r = 110;
+    int r = 95;
 
     // 1 упр
-    Picture picture1 = {100, 300, txLoadImage ("man.bmp"), 5, 5};
+    Picture picture1 = {100, 300, txLoadImage ("man.bmp"), 15, 15};
     int picture1_old_x = 0;
     int picture1_old_y = 0;
     bool turnback;
 
     // 2 вверх вниз
-    Picture picture2 = {100, 300, picture1.image, 1, 1};
+    Picture picture2 = {100, 300, picture1.image, 2, 2};
 
     //Бариер
     Barriar bar1 = {111, 30, 100, 100};
@@ -67,9 +70,10 @@ txDisableAutoPause();
     Bullet bul = {150, 150, false, 0, 10};
 
     char str [100];
-    const char* str1 = "1";
 
     bool stop = true;
+
+    int level = 1;
        //пуля
        while(!GetAsyncKeyState(VK_ESCAPE))
     {
@@ -84,8 +88,8 @@ txDisableAutoPause();
         picture1_old_y = picture1.y;
         //хп
         draw_picture(picture2);
-        txSetColor(TX_RED);
-        txSetFillColor(TX_RED);
+        txSetColor(TX_ORANGE);
+        txSetFillColor(TX_ORANGE);
         txRectangle (picture2.x,  picture2.y+15, picture2.x+r , picture2.y);
 
         //управление
@@ -138,12 +142,12 @@ txDisableAutoPause();
 
 
 
-        if(picture2.y<0 || picture2.y>600)
+        if(picture2.y<0 || picture2.y>400)
         {
             picture2.vy=-picture2.vy;
         }
 
-        if(picture2.x<0 || picture2.x>800)
+        if(picture2.x<0 || picture2.x>700)
         {
             picture2.vx=-picture2.vx;
         }
@@ -162,18 +166,8 @@ txDisableAutoPause();
         }
         //кординаты
         txSetColor(TX_WHITE);
-        sprintf(str,"Координата x = %d", bul.x);
+        sprintf(str,"Уровнь: %d", level);
         txTextOut(10, 10, str);
-        sprintf(str,"Координата y = %d", bul.y);
-        txTextOut(10, 25, str);
-
-
-        txTextOut(10, 40, str1);
-
-        if(GetAsyncKeyState ('D'))
-        {
-           str1 = "TEXT";
-        }
 
         if( bul.x > picture2.x && bul.x < picture2.x+101 &&
             bul.y > picture2.y && bul.y < picture2.y+10)
@@ -184,6 +178,16 @@ txDisableAutoPause();
                 r=0;
                 stop = false;
             }
+        }
+
+        if(r==0 && level==1)
+        {
+            background = background2;
+            level = 2;
+            stop = true;
+            r = 100;
+            picture2.vy = 10;
+            picture2.vx = 10;
         }
 
         if(picture1.x < 0)
@@ -214,7 +218,8 @@ txDisableAutoPause();
         txSleep(10);
     }
 
-    txDeleteDC (background);
+    txDeleteDC (background1);
+    txDeleteDC (background2);
     txDeleteDC (picture1.image);
     txDeleteDC (picture2.image);
 
