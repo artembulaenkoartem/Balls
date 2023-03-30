@@ -166,7 +166,7 @@ txDisableAutoPause();
         }
         //смена уровня
         txSetColor(TX_WHITE);
-        sprintf(str,"Уровнь: %d", level);
+        sprintf(str,"Уровeнь: %d", level);
         txTextOut(10, 10, str);
 
         if( bul.visible &&
