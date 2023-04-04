@@ -56,7 +56,7 @@ txDisableAutoPause();
     int r = 95;
 
     // 1 упр
-    Picture picture1 = {100, 300, txLoadImage ("man.bmp"), 5, 5};
+    Picture picture1 = {100, 300, txLoadImage ("man.bmp"), 15, 15};
     int picture1_old_x = 0;
     int picture1_old_y = 0;
     bool turnback;
