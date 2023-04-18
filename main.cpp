@@ -76,32 +76,39 @@ txDisableAutoPause();
     string PAGE = "Menu";
        //ïóëÿ
        while(!GetAsyncKeyState(VK_ESCAPE))
+       //ìåíþ
     {
         txClear();
         txSetColor(TX_WHITE,5);
         txSetFillColor(TX_BLACK);
         txBegin();
         if(PAGE == "Menu")
+        //ñòàðò
         {
             txBitBlt (txDC(), 0, 0,  800, 600, background0);
             txRectangle(300, 200, 500, 250);
             txDrawText(300, 200, 500, 250, "ÑÒÀÐÒ");
-
             if(txMouseButtons() == 1 && txMouseX() > 300 && txMouseX() < 500 && txMouseY() > 200 && txMouseY() < 250)
             {
                 PAGE = "Game";
             }
 
-
+        //âûõîä
              txRectangle(300, 300, 500, 350);
             txDrawText(300, 300, 500, 350, "ÂÛÕÎÄ");
-
             if(txMouseButtons() == 1 && txMouseX() > 350 && txMouseX() < 550 && txMouseY() > 300 && txMouseY() < 350)
+            {
+                PAGE = "Exit";
+            }
+
+        //ïðàâèëî
+             txRectangle(300, 400, 500, 450);
+            txDrawText(300, 400, 500, 450, "ÏÐÀÂÈËÀ");
+
+            if(txMouseButtons() == 1 && txMouseX() > 400 && txMouseX() < 600 && txMouseY() > 400 && txMouseY() < 450)
             {
                 PAGE = "";
             }
-
-
         }
         if(PAGE == "Game")
         {
@@ -184,7 +191,6 @@ txDisableAutoPause();
             txSetColor(TX_WHITE);
             sprintf(str,"Óðîâeíü: %d", level);
             txTextOut(10, 10, str);
-
             if( bul.visible &&
                 bul.x > picture2.x && bul.x < picture2.x+101 &&
                 bul.y > picture2.y && bul.y < picture2.y+10)
