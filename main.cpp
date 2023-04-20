@@ -75,40 +75,60 @@ txDisableAutoPause();
     int level = 1;
     string PAGE = "Menu";
        //пуля
-       while(!GetAsyncKeyState(VK_ESCAPE))
+       while(true)
        //меню
     {
         txClear();
         txSetColor(TX_WHITE,5);
         txSetFillColor(TX_BLACK);
         txBegin();
+        if(GetAsyncKeyState(VK_ESCAPE))
+        {
+            PAGE = "Menu";
+        }
         if(PAGE == "Menu")
         //старт
         {
             txBitBlt (txDC(), 0, 0,  800, 600, background0);
             txRectangle(300, 200, 500, 250);
             txDrawText(300, 200, 500, 250, "СТАРТ");
+
+            txRectangle(300, 300, 500, 350);
+            txDrawText(300, 300, 500, 350, "ВЫХОД");
+
+            txRectangle(300, 400, 500, 450);
+            txDrawText(300, 400, 500, 450, "ПРАВИЛА");
+
             if(txMouseButtons() == 1 && txMouseX() > 300 && txMouseX() < 500 && txMouseY() > 200 && txMouseY() < 250)
             {
                 PAGE = "Game";
             }
 
         //выход
-             txRectangle(300, 300, 500, 350);
-            txDrawText(300, 300, 500, 350, "ВЫХОД");
-            if(txMouseButtons() == 1 && txMouseX() > 350 && txMouseX() < 550 && txMouseY() > 300 && txMouseY() < 350)
+            if(txMouseButtons() == 1 && txMouseX() > 300 && txMouseX() < 500 && txMouseY() > 300 && txMouseY() < 350)
             {
-                PAGE = "Exit";
+                break;
             }
 
         //правило
-             txRectangle(300, 400, 500, 450);
-            txDrawText(300, 400, 500, 450, "ПРАВИЛА");
-
-            if(txMouseButtons() == 1 && txMouseX() > 400 && txMouseX() < 600 && txMouseY() > 400 && txMouseY() < 450)
+            if(txMouseButtons() == 1 && txMouseX() > 300 && txMouseX() < 500 && txMouseY() > 400 && txMouseY() < 450)
             {
-                PAGE = "";
+                PAGE = "Rules";
             }
+
+
+
+        }
+
+        if(PAGE == "Rules")
+        {
+             txDrawText(0, 100, 800, 600, "Игра \n ВИРТУАЛЬНЫЙ ТИР. \n \n "
+                                            "Правила игры. \n \n"
+                                            "Стреляй во все, что движется. \n \n"
+                                            "Управление. \n \n"
+                                            "Передвигаться по клавишам w,d,s,a. \n \n"
+                                            "Cтрелять на побел.\n");
+
         }
         if(PAGE == "Game")
         {
